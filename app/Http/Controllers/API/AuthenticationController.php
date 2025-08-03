@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class AuthenticationController extends Controller
-{
+{   
+    /**
+     * @unauthenticated
+     */
     public function register(Request $request)
     {
         $request->validate([
@@ -27,6 +30,9 @@ class AuthenticationController extends Controller
         return response()->json(['message' => 'User registered successfully']);
     }
 
+    /**
+     * @unauthenticated
+     */
     public function login(Request $request)
     {
         $request->validate([
@@ -43,11 +49,17 @@ class AuthenticationController extends Controller
         return response()->json(['token' => $token]);
     }
 
+    /**
+     * @unauthenticated
+     */
     public function userInfo(Request $request)
     {
         return response()->json($request->user());
     }
 
+    /**
+     * @unauthenticated
+     */
     public function logOut(Request $request)
     {
         $request->user()->tokens()->delete();
